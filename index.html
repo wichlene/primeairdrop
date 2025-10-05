@@ -123,6 +123,62 @@
 
   <footer>© 2025 PrimeAirdrop — Tüm Hakları Saklıdır</footer>
 </body>
+  <div id="crypto-sidebar" style="
+  position: fixed;
+  top: 100px;
+  left: 0;
+  width: 220px;
+  background: #161b22;
+  color: #00ff88;
+  padding: 20px;
+  border-right: 1px solid #222;
+  font-size: 14px;
+  height: calc(100vh - 120px);
+  overflow-y: auto;
+  font-family: Arial, sans-serif;
+">
+  <h3>🪙 Popüler Coin Fiyatları (Demo)</h3>
+  <div id="prices">Yükleniyor...</div>
+</div>
+
+<script>
+  const demoPrices = {
+    bitcoin: 27485,
+    ethereum: 1800,
+    solana: 24,
+    binancecoin: 310,
+    dogecoin: 0.08,
+    "shiba-inu": 0.00001,
+    ripple: 0.51,
+    cardano: 0.35,
+    "avalanche-2": 17,
+    polygon: 1.10,
+    chainlink: 7.5,
+    toncoin: 1.2
+  };
+
+  function updatePrices() {
+    const pricesHTML = `
+      ₿ BTC: $${demoPrices.bitcoin}<br>
+      Ξ ETH: $${demoPrices.ethereum}<br>
+      ◎ SOL: $${demoPrices.solana}<br>
+      🟡 BNB: $${demoPrices.binancecoin}<br>
+      🐶 DOGE: $${demoPrices.dogecoin}<br>
+      🪙 SHIB: $${demoPrices["shiba-inu"]}<br>
+      🔵 XRP: $${demoPrices.ripple}<br>
+      🟣 ADA: $${demoPrices.cardano}<br>
+      🔶 AVAX: $${demoPrices["avalanche-2"]}<br>
+      🔷 MATIC: $${demoPrices.polygon}<br>
+      💠 LINK: $${demoPrices.chainlink}<br>
+      🟢 TON: $${demoPrices.toncoin}
+    `;
+
+    document.getElementById('prices').innerHTML = pricesHTML;
+  }
+
+  updatePrices();
+</script>
+
 </script>
   <footer style="text-align:center; padding: 30px 10px; background-color: #061025; color: white;">
   <p style="font-size: 18px; margin-bottom: 15px;">Bizi Takip Et</p>
