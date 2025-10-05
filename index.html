@@ -122,61 +122,50 @@
   </div>
 
   <footer>© 2025 PrimeAirdrop — Tüm Hakları Saklıdır</footer>
-</body>
-  <div id="crypto-sidebar" style="
-  position: fixed;
-  top: 100px;
-  left: 0;
-  width: 220px;
-  background: #161b22;
-  color: #00ff88;
-  padding: 20px;
-  border-right: 1px solid #222;
-  font-size: 14px;
-  height: calc(100vh - 120px);
-  overflow-y: auto;
-  font-family: Arial, sans-serif;
-">
-  <h3>🪙 Popüler Coin Fiyatları (Demo)</h3>
+  <div id="crypto-sidebar">
+  <h3>🪙 Popüler Coin Fiyatları (Canlı)</h3>
   <div id="prices">Yükleniyor...</div>
 </div>
 
+</body>
 <script>
-  const demoPrices = {
-    bitcoin: 27485,
-    ethereum: 1800,
-    solana: 24,
-    binancecoin: 310,
-    dogecoin: 0.08,
-    "shiba-inu": 0.00001,
-    ripple: 0.51,
-    cardano: 0.35,
-    "avalanche-2": 17,
-    polygon: 1.10,
-    chainlink: 7.5,
-    toncoin: 1.2
+  const coinSymbols = {
+    bitcoin: '₿ BTC',
+    ethereum: 'Ξ ETH',
+    solana: '◎ SOL',
+    binancecoin: '🟡 BNB',
+    dogecoin: '🐶 DOGE',
+    "shiba-inu": '🪙 SHIB',
+    ripple: '🔵 XRP',
+    cardano: '🟣 ADA',
+    "avalanche-2": '🔶 AVAX',
+    polygon: '🔷 MATIC',
+    chainlink: '💠 LINK',
+    toncoin: '🟢 TON'
   };
 
-  function updatePrices() {
-    const pricesHTML = `
-      ₿ BTC: $${demoPrices.bitcoin}<br>
-      Ξ ETH: $${demoPrices.ethereum}<br>
-      ◎ SOL: $${demoPrices.solana}<br>
-      🟡 BNB: $${demoPrices.binancecoin}<br>
-      🐶 DOGE: $${demoPrices.dogecoin}<br>
-      🪙 SHIB: $${demoPrices["shiba-inu"]}<br>
-      🔵 XRP: $${demoPrices.ripple}<br>
-      🟣 ADA: $${demoPrices.cardano}<br>
-      🔶 AVAX: $${demoPrices["avalanche-2"]}<br>
-      🔷 MATIC: $${demoPrices.polygon}<br>
-      💠 LINK: $${demoPrices.chainlink}<br>
-      🟢 TON: $${demoPrices.toncoin}
-    `;
+  async function fetchLivePrices() {
+    try {
+      const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,solana,binancecoin,dogecoin,shiba-inu,ripple,cardano,avalanche-2,polygon,chainlink,toncoin&vs_currencies=usd');
+      if (!response.ok) throw new Error('API hatası');
+      const data = await response.json();
 
-    document.getElementById('prices').innerHTML = pricesHTML;
+      let html = '';
+      for (const coin in data) {
+        const symbol = coinSymbols[coin] || coin.toUpperCase();
+        html += `${symbol}: $${data[coin].usd}<br>`;
+      }
+      document.getElementById('prices').innerHTML = html;
+    } catch (error) {
+      document.getElementById('prices').innerText = 'Veri alınamadı 😕';
+      console.error(error);
+    }
   }
 
-  updatePrices();
+  fetchLivePrices();
+  setInterval(fetchLivePrices, 60000); // 60 saniyede bir yenile
+</script>
+
 </script>
 
 </script>
