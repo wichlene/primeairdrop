@@ -2,124 +2,173 @@
 <html lang="tr">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PrimeAirdrop</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Prime Airdrop</title>
   <style>
     body {
-      background-color: #000;
-      color: #fff;
-      font-family: 'Inter', Arial, sans-serif;
-      text-align: center;
       margin: 0;
-      padding: 30px 15px;
+      font-family: Arial, sans-serif;
+      background: #f5f5f5;
+      display: flex;
+      min-height: 100vh;
+      overflow-x: hidden;
     }
-    h1 {
-      color: #FFD700;
-      font-size: 2.5rem;
-      margin-bottom: 10px;
-      text-shadow: 0 0 15px #FFD700;
-    }
-    p {
-      color: #aaa;
-      margin-bottom: 30px;
-    }
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+
+    /* Sosyal medya ikonu sağda sabit */
+    .social-media {
+      position: fixed;
+      top: 50%;
+      right: 10px;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
       gap: 20px;
-      max-width: 900px;
-      margin: 0 auto;
+      z-index: 1000;
     }
-    .card {
-      background: linear-gradient(145deg, #111, #000);
-      border: 1px solid #222;
-      border-radius: 12px;
-      padding: 20px;
-      transition: all 0.3s ease;
-      box-shadow: 0 0 10px rgba(255, 215, 0, 0.1);
-    }
-    .card:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 20px #FFD700;
-    }
-    .card h3 {
-      color: #FFD700;
-      margin-bottom: 12px;
-    }
-    .card a {
-      display: inline-block;
-      background-color: #FFD700;
-      color: #000;
-      padding: 8px 18px;
-      border-radius: 8px;
-      font-weight: bold;
+    .social-media a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 44px;
+      height: 44px;
+      background: #222;
+      border-radius: 50%;
       text-decoration: none;
+      color: white;
+      transition: background-color 0.3s ease;
     }
-    footer {
-      margin-top: 50px;
-      color: #666;
-      font-size: 0.9rem;
+    .social-media a:hover {
+      background: #007bff;
+    }
+    .social-media a img {
+      width: 24px;
+      height: 24px;
+      filter: invert(1);
+    }
+
+    /* Ortada referans linkleri */
+    .ref-links-container {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 40px 20px;
+    }
+    .ref-links {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      max-width: 320px;
+      width: 100%;
+      background: white;
+      padding: 24px;
+      border-radius: 8px;
+      box-shadow: 0 4px 15px rgb(0 0 0 / 0.1);
+    }
+    .ref-links a {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: #222;
+      font-weight: 600;
+      font-size: 16px;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 6px;
+      transition: color 0.3s ease;
+    }
+    .ref-links a:last-child {
+      border-bottom: none;
+    }
+    .ref-links a:hover {
+      color: #007bff;
+    }
+    .ref-links img {
+      width: 28px;
+      height: 28px;
+      object-fit: contain;
+      filter: invert(0.15) sepia(0.5) saturate(5) hue-rotate(180deg);
     }
   </style>
 </head>
 <body>
-<style>
-  .ref-links {
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* Ortaya hizalama */
-    gap: 15px;
-    margin: 40px auto;
-    max-width: 320px;
-    font-family: Arial, sans-serif;
-  }
-  .ref-links a {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    text-decoration: none;
-    color: #222;
-    font-weight: 600;
-    font-size: 18px;
-    transition: color 0.3s ease;
-  }
-  .ref-links a:hover {
-    color: #007bff;
-  }
-  .ref-links img {
-    width: 28px;
-    height: 28px;
-    object-fit: contain;
-    filter: invert(0.15) sepia(0.5) saturate(5) hue-rotate(180deg);
-  }
-</style>
 
-<div class="ref-links">
-  <a href="https://efsanetr.com" target="_blank" title="Efsane.tr">
-    <img src="https://cdn.jsdelivr.net/npm/simple-icons@v10/icons/linkedin.svg" alt="Efsane.tr Icon" />
-    Efsane.tr
-  </a>
-  <a href="https://app.grass.io" target="_blank" title="Grass">
+  <!-- Sağdaki sosyal medya ikonları -->
+  <div class="social-media">
+    <a href="https://discord.com/channels/@wichlene" target="_blank" title="Discord">
+      <img src="https://cdn.jsdelivr.net/npm/simple-icons@v10/icons/discord.svg" alt="Discord" />
+    </a>
+    <a href="https://www.facebook.com/profile.php?id=61573834593870" target="_blank" title="Facebook">
+      <img src="https://cdn.jsdelivr.net/npm/simple-icons@v10/icons/facebook.svg" alt="Facebook" />
+    </a>
+    <a href="https://www.instagram.com/primeairdrop3/" target="_blank" title="Instagram">
+      <img src="https://cdn.jsdelivr.net/npm/simple-icons@v10/icons/instagram.svg" alt="Instagram" />
+    </a>
+    <a href="https://x.com/muhtac10" target="_blank" title="X (Twitter)">
+      <img src="https://cdn.jsdelivr.net/npm/simple-icons@v10/icons/twitter.svg" alt="X (Twitter)" />
+    </a>
+    <a href="https://github.com/wichlene" target="_blank" title="GitHub">
+      <img src="https://cdn.jsdelivr.net/npm/simple-icons@v10/icons/github.svg" alt="GitHub" />
+    </a>
+  </div>
 
+  <!-- Ortadaki referans linkleri -->
+  <div class="ref-links-container">
+    <div class="ref-links">
+      <a href="https://efsanetr.com" target="_blank" title="Efsane.tr">
+        <img src="https://cdn.jsdelivr.net/npm/simple-icons@v10/icons/linkedin.svg" alt="Efsane.tr" />
+        Efsane.tr
+      </a>
+      <a href="https://app.grass.io" target="_blank" title="Grass">
+        <img src="https://cdn.jsdelivr.net/npm/simple-icons@v10/icons/grass.svg" alt="Grass" />
+        Grass
+      </a>
+      <a href="https://dashboard.teneo.pro" target="_blank" title="Teneo">
+        <img src="https://cdn.jsdelivr.net/npm/simple-icons@v10/icons/tensorflow.svg" alt="Teneo" />
+        Teneo
+      </a>
+      <a href="https://jigsaw.google.com" target="_blank" title="Jigsaw">
+        <img src="https://cdn.jsdelivr.net/npm/simple-icons@v10/icons/google.svg" alt="Jigsaw" />
+        Jigsaw
+      </a>
+      <a href="https://globshaga.com" target="_blank" title="Globshaga">
+        <img src="https://cdn.jsdelivr.net/npm/simple-icons@v10/icons/googlechrome.svg" alt="Globshaga" />
+        Globshaga
+      </a>
+      <a href="https://teafi.com" target="_blank" title="Teafi">
+        <img src="https://cdn.jsdelivr.net/npm/simple-icons@v10/icons/teal.svg" alt="Teafi" />
+        Teafi
+      </a>
+      <a href="https://3dos.com" target="_blank" title="3DOS">
+        <img src="https://cdn.jsdelivr.net/npm/simple-icons@v10/icons/threejs.svg" alt="3DOS" />
+        3DOS
+      </a>
+      <a href="https://toggle.com" target="_blank" title="Toggle">
+        <img src="https://cdn.jsdelivr.net/npm/simple-icons@v10/icons/toggl.svg" alt="Toggle" />
+        Toggle
+      </a>
+      <a href="https://despeed.com" target="_blank" title="Despeed">
+        <img src="https://cdn.jsdelivr.net/npm/simple-icons@v10/icons/docker.svg" alt="Despeed" />
+        Despeed
+      </a>
+      <a href="https://perceptron.com" target="_blank" title="Perseptron">
+        <img src="https://cdn.jsdelivr.net/npm/simple-icons@v10/icons/perl.svg" alt="Perseptron" />
+        Perseptron
+      </a>
+      <a href="https://incentiv.com" target="_blank" title="Incentiv">
+        <img src="https://cdn.jsdelivr.net/npm/simple-icons@v10/icons/influxdb.svg" alt="Incentiv" />
+        Incentiv
+      </a>
+      <a href="https://sosovalue.com" target="_blank" title="Sosovalue">
+        <img src="https://cdn.jsdelivr.net/npm/simple-icons@v10/icons/salesforce.svg" alt="Sosovalue" />
+        Sosovalue
+      </a>
+      <a href="https://trex.com" target="_blank" title="Trex">
+        <img src="https://cdn.jsdelivr.net/npm/simple-icons@v10/icons/trello.svg" alt="Trex" />
+        Trex
+      </a>
+    </div>
+  </div>
 
 </body>
-  <!-- Sağ sabit sosyal medya çubuğu -->
-<div style="position: fixed; top: 50%; right: 0; transform: translateY(-50%); display: flex; flex-direction: column; gap: 15px; padding: 10px;">
-  <a href="https://discord.com/channels/@wichlene" target="_blank" title="Discord">
-    <img src="https://cdn.jsdelivr.net/npm/simple-icons@v10/icons/discord.svg" alt="Discord" width="28" height="28" style="filter: invert(1);" />
-  </a>
-  <a href="https://www.facebook.com/profile.php?id=61573834593870" target="_blank" title="Facebook">
-    <img src="https://cdn.jsdelivr.net/npm/simple-icons@v10/icons/facebook.svg" alt="Facebook" width="28" height="28" style="filter: invert(1);" />
-  </a>
-  <a href="https://www.instagram.com/primeairdrop3/" target="_blank" title="Instagram">
-    <img src="https://cdn.jsdelivr.net/npm/simple-icons@v10/icons/instagram.svg" alt="Instagram" width="28" height="28" style="filter: invert(1);" />
-  </a>
-  <a href="https://x.com/muhtac10" target="_blank" title="X">
-    <img src="https://cdn.jsdelivr.net/npm/simple-icons@v10/icons/x.svg" alt="X" width="28" height="28" style="filter: invert(1);" />
-  </a>
-  <a href="https://github.com/wichlene" target="_blank" title="GitHub">
-    <img src="https://cdn.jsdelivr.net/npm/simple-icons@v10/icons/github.svg" alt="GitHub" width="28" height="28" style="filter: invert(1);" />
-  </a>
-</div>
-
 </html>
