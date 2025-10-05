@@ -123,6 +123,27 @@
 
   <footer>© 2025 PrimeAirdrop — Tüm Hakları Saklıdır</footer>
 </body>
+  <!-- Anlık Coin Fiyatları Sidebar -->
+<div id="crypto-sidebar" style="position: fixed; top: 100px; left: 0; width: 180px; background: #ffffffdd; padding: 12px; border-right: 1px solid #ccc; z-index: 1000;">
+  <h4 style="margin:0 0 10px 0; font-size:16px;">Fiyatlar</h4>
+  <div id="prices">Loading...</div>
+</div>
+
+<script>
+  async function fetchPrices() {
+    try {
+      const resp = await fetch("https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum&vs_currencies=usd");
+      const data = await resp.json();
+      document.getElementById("prices").innerHTML = 
+        `₿ BTC: $${data.bitcoin.usd}<br>Ξ ETH: $${data.ethereum.usd}`;
+    } catch (err) {
+      console.error("Fiyat alma hatası:", err);
+      document.getElementById("prices").innerText = "Hata!";
+    }
+  }
+  fetchPrices();
+  setInterval(fetchPrices, 15000);
+</script>
   <footer style="text-align:center; padding: 30px 10px; background-color: #061025; color: white;">
   <p style="font-size: 18px; margin-bottom: 15px;">Bizi Takip Et</p>
   <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
