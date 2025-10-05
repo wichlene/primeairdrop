@@ -173,6 +173,18 @@
       document.getElementById("prices").innerText = "Veri alınamadı 😕";
     }
   }
+<div id="test-fetch">Yükleniyor...</div>
+<script>
+  fetch("https://api.coingecko.com/api/v3/ping")
+    .then(res => res.json())
+    .then(data => {
+      document.getElementById("test-fetch").innerText = "API Çalışıyor ✔️";
+    })
+    .catch(err => {
+      document.getElementById("test-fetch").innerText = "API Hatası ❌";
+      console.error(err);
+    });
+</script>
 
   fetchPrices();
   setInterval(fetchPrices, 15000);
