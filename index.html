@@ -1,389 +1,126 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>PrimeAirdrop — Drop Hunting</title>
-  <meta name="description" content="PrimeAirdrop — DePIN & Web3 drop listeleri" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PrimeAirdrop</title>
   <style>
-    :root{
-      --bg:#f4f7fb;
-      --card:#ffffff;
-      --muted:#6b7280;
-      --primary:#1DA1F2; /* ana mavi */
-      --accent:#0d8ddb;
-      --glass: rgba(255,255,255,0.7);
-      --radius:12px;
-      --shadow: 0 6px 18px rgba(16,24,40,0.08);
-      --mono: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    body {
+      background-color: #000;
+      color: #fff;
+      font-family: 'Inter', Arial, sans-serif;
+      text-align: center;
+      margin: 0;
+      padding: 30px 15px;
     }
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0;
-      font-family:var(--mono);
-      background:var(--bg);
-      color:#111827;
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
+    h1 {
+      color: #FFD700;
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+      text-shadow: 0 0 15px #FFD700;
     }
-
-    /* Topbar */
-    .topbar{
-      height:72px;
-      display:flex;
-      align-items:center;
-      gap:18px;
-      padding:0 20px;
-      background:linear-gradient(90deg, rgba(29,161,242,0.06), rgba(13,141,219,0.03));
-      border-bottom:1px solid rgba(0,0,0,0.04);
-      position:sticky;
-      top:0;
-      z-index:40;
+    p {
+      color: #aaa;
+      margin-bottom: 30px;
     }
-    .logo {
-      display:flex; gap:10px; align-items:center;
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+      max-width: 900px;
+      margin: 0 auto;
     }
-    .logo img { width:48px;height:48px;border-radius:50%; }
-    .brand {
-      font-weight:700;
-      color:var(--primary);
-      font-size:1.1rem;
+    .card {
+      background: linear-gradient(145deg, #111, #000);
+      border: 1px solid #222;
+      border-radius: 12px;
+      padding: 20px;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 10px rgba(255, 215, 0, 0.1);
     }
-
-    .search {
-      flex:1;
-      display:flex;
-      align-items:center;
-      gap:8px;
-      max-width:900px;
-      margin-left:10px;
+    .card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 20px #FFD700;
     }
-    .search input{
-      width:100%;
-      padding:12px 16px;
-      border-radius: 999px;
-      border:1px solid rgba(0,0,0,0.06);
-      background:white;
-      outline:none;
-      box-shadow: var(--shadow);
+    .card h3 {
+      color: #FFD700;
+      margin-bottom: 12px;
     }
-    .top-actions{display:flex;align-items:center;gap:12px;margin-left:auto}
-
-    /* layout */
-    .wrap{
-      max-width:1200px;
-      margin:28px auto;
-      padding:0 18px;
-      display:grid;
-      grid-template-columns: 260px 1fr 300px;
-      gap:20px;
-      align-items:start;
+    .card a {
+      display: inline-block;
+      background-color: #FFD700;
+      color: #000;
+      padding: 8px 18px;
+      border-radius: 8px;
+      font-weight: bold;
+      text-decoration: none;
     }
-
-    /* left filters */
-    .filters{
-      position:relative;
-      background:var(--card);
-      border-radius:var(--radius);
-      padding:18px;
-      box-shadow:var(--shadow);
-      height:max-content;
-    }
-    .filters h3{margin:0 0 12px 0;font-size:15px;color:#111827}
-    .filter-group{display:flex;flex-direction:column;gap:8px;margin-bottom:12px}
-    .chip{
-      display:inline-flex;align-items:center;gap:8px;padding:8px 12px;background:#f7fafc;border-radius:999px;border:1px solid rgba(0,0,0,0.04);
-      cursor:pointer;color:var(--muted);font-weight:600;font-size:14px;
-    }
-    .chip.active{background:var(--primary);color:white;border-color:transparent}
-
-    /* center content */
-    .content {
-      min-height:300px;
-    }
-    .controls{
-      display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;
-    }
-    .controls .meta { color:var(--muted);font-weight:600 }
-    .grid{
-      display:grid;
-      grid-template-columns: repeat(2,1fr);
-      gap:16px;
-    }
-
-    .card{
-      background:var(--card);
-      border-radius:12px;
-      padding:14px;
-      box-shadow:var(--shadow);
-      display:flex;
-      gap:12px;
-      align-items:flex-start;
-      transition:transform .18s ease, box-shadow .18s ease;
-      border:1px solid rgba(0,0,0,0.03);
-    }
-    .card:hover{ transform: translateY(-6px); box-shadow: 0 18px 40px rgba(16,24,40,0.12) }
-    .card .logo {
-      min-width:56px;height:56px;border-radius:10px;overflow:hidden;background:#f3f4f6;display:flex;align-items:center;justify-content:center;
-    }
-    .card .logo img{width:48px;height:48px;object-fit:contain}
-    .card .body{flex:1}
-    .card .title{font-weight:700;margin:0 0 6px 0}
-    .card .desc{margin:0;color:var(--muted);font-size:14px}
-    .card .meta-row{display:flex;gap:10px;margin-top:10px;align-items:center}
-    .badge{padding:6px 8px;border-radius:999px;background:#eef2ff;color:#4338ca;font-weight:700;font-size:12px}
-
-    .btn {
-      display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:10px;background:var(--primary);color:white;border:none;cursor:pointer;font-weight:700;
-    }
-
-    /* right sidebar */
-    .sidebar{
-      position:sticky; top:90px;
-      align-self:start;
-      background:var(--card);
-      padding:16px;border-radius:var(--radius);box-shadow:var(--shadow);
-    }
-    .sidebar h4{margin:0 0 10px 0}
-    .leader{display:flex;align-items:center;gap:10px;padding:10px;border-radius:10px;background:#f8fafc;margin-bottom:8px}
-
-    /* responsive */
-    @media (max-width:1000px){
-      .wrap{grid-template-columns: 1fr; padding:0 14px}
-      .grid{grid-template-columns:1fr}
-      .social-media{display:none}
-      .sidebar{position:relative;top:0}
+    footer {
+      margin-top: 50px;
+      color: #666;
+      font-size: 0.9rem;
     }
   </style>
 </head>
 <body>
+  <h1>PrimeAirdrop</h1>
+  <p>Web3 & DePIN projelerinde kazanç fırsatlarını keşfet ✨</p>
 
-  <!-- TOPBAR -->
-  <div class="topbar" role="navigation" aria-label="Topbar">
-    <div class="logo">
-      <img src="/images/logo.gif" alt="PrimeAirdrop Logo" id="siteLogo" />
-      <div>
-        <div class="brand">PrimeAirdrop</div>
-        <div style="font-size:12px;color:var(--muted)">Drop hunting & airdrop tracker</div>
-      </div>
+  <div class="grid">
+    <div class="card">
+      <h3>Efsane.tr</h3>
+      <a href="https://efsanetr.com/tr_TR/internal/register/?inviteCode=CZS02K" target="_blank">Katıl</a>
     </div>
-
-    <div class="search" role="search">
-      <input id="q" placeholder="Projede ara — isim, tag veya platform..." />
+    <div class="card">
+      <h3>Grass</h3>
+      <a href="https://app.grass.io/register?referral=4AbAhV-0w4MhgKU" target="_blank">Katıl</a>
     </div>
-
-    <div class="top-actions">
-      <button class="btn" id="newDropBtn">+ Yeni Drop Ekle</button>
+    <div class="card">
+      <h3>Teneo</h3>
+      <a href="https://dashboard.teneo.pro/auth/signup?referralCode=c8uwI" target="_blank">Katıl</a>
+    </div>
+    <div class="card">
+      <h3>Jigsaw</h3>
+      <a href="https://jigsaw.build?ref=emrckc9mszwf" target="_blank">Katıl</a>
+    </div>
+    <div class="card">
+      <h3>Globshaga</h3>
+      <a href="https://glob.shaga.xyz/?r=NIgRLgzM5B" target="_blank">Katıl</a>
+    </div>
+    <div class="card">
+      <h3>Teafi</h3>
+      <a href="https://app.tea-fi.com/?ref=3bbx7e" target="_blank">Katıl</a>
+    </div>
+    <div class="card">
+      <h3>3DOS</h3>
+      <a href="https://dashboard.3dos.io/register?ref_code=c89a31" target="_blank">Katıl</a>
+    </div>
+    <div class="card">
+      <h3>Toggle</h3>
+      <a href="https://toggle.pro/sign-up/8df15eb2-bee5-4ef3-bee6-fca54b3ca935" target="_blank">Katıl</a>
+    </div>
+    <div class="card">
+      <h3>Despeed</h3>
+      <a href="https://app.despeed.net/register?ref=9cmFGcePqiXV" target="_blank">Katıl</a>
+    </div>
+    <div class="card">
+      <h3>Perseptron</h3>
+      <a href="https://app.blockmesh.xyz/register?invite_code=54fd20e0-32cf-4177-a22f-74eda9161d15" target="_blank">Katıl</a>
+    </div>
+    <div class="card">
+      <h3>Incentiv</h3>
+      <a href="https://testnet.incentiv.io/login?refCode=6x6Kuh9e7nBrEX9hFYj6SX" target="_blank">Katıl</a>
+    </div>
+    <div class="card">
+      <h3>Sosovalue</h3>
+      <a href="https://sosovalue.com/join/R98NT7Z7" target="_blank">Katıl</a>
+    </div>
+    <div class="card">
+      <h3>Trex</h3>
+      <a href="https://s.trex.xyz/lljUoy" target="_blank">Katıl</a>
     </div>
   </div>
 
-  <!-- ANA İÇERİK -->
-  <main class="wrap" role="main">
-
-    <!-- SOL: Filtreler -->
-    <aside class="filters" aria-label="Filtreler">
-      <h3>Filtreler</h3>
-
-      <div class="filter-group">
-        <div style="font-size:13px;color:var(--muted);margin-bottom:6px">Kategori</div>
-        <div style="display:flex;flex-wrap:wrap;gap:8px">
-          <div class="chip active" data-filter="all">Hepsi</div>
-          <div class="chip" data-filter="web3">Web3</div>
-          <div class="chip" data-filter="depin">DePIN</div>
-          <div class="chip" data-filter="nft">NFT</div>
-          <div class="chip" data-filter="infra">Infra</div>
-        </div>
-      </div>
-
-      <div class="filter-group">
-        <div style="font-size:13px;color:var(--muted);margin-bottom:6px">Durum</div>
-        <div style="display:flex;gap:8px">
-          <div class="chip" data-state="upcoming">Yakında</div>
-          <div class="chip" data-state="live">Canlı</div>
-          <div class="chip" data-state="ended">Sona Erdi</div>
-        </div>
-      </div>
-
-      <div style="font-size:13px;color:var(--muted);margin-top:10px">Etiketler</div>
-      <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:8px">
-        <div class="chip" data-tag="airdrop">airdrop</div>
-        <div class="chip" data-tag="testnet">testnet</div>
-        <div class="chip" data-tag="rewards">rewards</div>
-        <div class="chip" data-tag="bounty">bounty</div>
-      </div>
-    </aside>
-
-    <!-- ORTADA: Kartlar -->
-    <section class="content" aria-label="İlanlar">
-      <div class="controls">
-        <div class="meta" id="countMeta">12 proje bulundu</div>
-        <div>
-          <select id="sort">
-            <option value="latest">En yeni</option>
-            <option value="popular">Popüler</option>
-            <option value="ending">Yakında Sona Erecek</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="grid" id="grid">
-        <!-- Kartlar JavaScript ile eklenecek -->
-      </div>
-
-      <div style="text-align:center;margin-top:20px">
-        <button class="btn" id="loadMore">Daha fazla göster</button>
-      </div>
-    </section>
-
-    <!-- SAĞ: Sidebar -->
-    <aside class="sidebar" aria-label="Sidebar">
-      <h4>En Çok Takip Edilenler</h4>
-      <div id="leaders">
-        <!-- JS ile eklenecek -->
-      </div>
-
-      <hr style="margin:12px 0;border:none;height:1px;background:#f1f5f9" />
-      <div style="font-size:13px;color:var(--muted)">İstatistikler</div>
-      <div style="display:flex;gap:10px;margin-top:10px;flex-wrap:wrap">
-        <div style="padding:10px;background:#f7fbff;border-radius:8px;font-weight:700;color:var(--primary)">124 Drops</div>
-        <div style="padding:10px;background:#fff6f6;border-radius:8px;font-weight:700;color:#ef4444">34 Active</div>
-      </div>
-    </aside>
-
-  </main>
-
-<script>
-/* ---------- SAMPLE DATA (kendi verinle değiştir) ---------- */
-const DATA = [
-  {id:1,name:'Grass',desc:'DePIN coverage & rewards',tag:'depin',state:'live',logo:'https://app.grass.io/favicon.ico',followers:1240},
-  {id:2,name:'Teneo',desc:'Edge compute marketplace',tag:'infra',state:'upcoming',logo:'https://dashboard.teneo.pro/favicon.ico',followers:730},
-  {id:3,name:'Jigsaw',desc:'Security research toolkit',tag:'web3',state:'ended',logo:'https://jigsaw.google.com/favicon.ico',followers:980},
-  {id:4,name:'Globshaga',desc:'Global mesh network',tag:'depin',state:'live',logo:'https://globshaga.com/favicon.ico',followers:430},
-  {id:5,name:'Teafi',desc:'Incentivized sensors',tag:'depin',state:'live',logo:'https://teafi.com/favicon.ico',followers:210},
-  {id:6,name:'3DOS',desc:'3D mapping for sensors',tag:'infra',state:'upcoming',logo:'https://3dos.com/favicon.ico',followers:150},
-  {id:7,name:'Toggle',desc:'Task toggling platform',tag:'web3',state:'live',logo:'https://toggle.com/favicon.ico',followers:520},
-  {id:8,name:'Despeed',desc:'Performance layer',tag:'infra',state:'live',logo:'https://despeed.com/favicon.ico',followers:120},
-  {id:9,name:'Perseptron',desc:'ML for edge',tag:'infra',state:'upcoming',logo:'https://perceptron.com/favicon.ico',followers:95},
-  {id:10,name:'Incentiv',desc:'Rewards orchestration',tag:'web3',state:'live',logo:'https://incentiv.com/favicon.ico',followers:330},
-  {id:11,name:'Sosovalue',desc:'Value exchange',tag:'web3',state:'ended',logo:'https://sosovalue.com/favicon.ico',followers:60},
-  {id:12,name:'Trex',desc:'Analytics suite',tag:'web3',state:'live',logo:'https://trex.com/favicon.ico',followers:410},
-];
-
-/* ---------- Render helpers ---------- */
-const grid = document.getElementById('grid');
-const leaders = document.getElementById('leaders');
-const countMeta = document.getElementById('countMeta');
-
-function createCard(d){
-  const el = document.createElement('article');
-  el.className='card';
-  el.dataset.tag = d.tag;
-  el.dataset.state = d.state;
-  el.innerHTML = `
-    <div class="logo"><img src="${d.logo}" alt="${d.name} logo" onerror="this.src='https://via.placeholder.com/48?text=?'"/></div>
-    <div class="body">
-      <h3 class="title">${d.name}</h3>
-      <p class="desc">${d.desc}</p>
-      <div class="meta-row">
-        <div class="badge">${d.state.toUpperCase()}</div>
-        <div style="color:var(--muted);font-size:13px">${d.tag}</div>
-        <div style="margin-left:auto"><button class="btn" onclick="location.href='#'">Claim</button></div>
-      </div>
-    </div>
-  `;
-  return el;
-}
-
-function renderGrid(list){
-  grid.innerHTML='';
-  list.forEach(item => grid.appendChild(createCard(item)));
-  countMeta.textContent = `${list.length} proje bulundu`;
-}
-
-/* leaders */
-function renderLeaders(){
-  const sorted = [...DATA].sort((a,b)=>b.followers - a.followers).slice(0,5);
-  leaders.innerHTML = '';
-  sorted.forEach((s,idx)=>{
-    const el = document.createElement('div');
-    el.className='leader';
-    el.innerHTML = `<div style="width:44px;height:44px;border-radius:8px;background:#eef2ff;display:flex;align-items:center;justify-content:center"><img src="${s.logo}" alt="${s.name}" style="width:28px;height:28px" onerror="this.src='https://via.placeholder.com/28?text=?'"/></div>
-      <div style="flex:1">
-        <div style="font-weight:700">${s.name}</div>
-        <div style="font-size:13px;color:var(--muted)">${s.followers} takipçi</div>
-      </div>
-      <div style="font-weight:700;color:var(--primary)">${idx+1}</div>`;
-    leaders.appendChild(el);
-  });
-}
-
-/* ---------- Filters & Search ---------- */
-const chips = document.querySelectorAll('.chip');
-chips.forEach(ch=>{
-  ch.addEventListener('click',()=>{
-    // toggle active when appropriate
-    // if chip has data-filter="all" -> reset others
-    if(ch.dataset.filter === 'all'){
-      chips.forEach(c=>c.classList.remove('active'));
-      ch.classList.add('active');
-    } else {
-      // toggle only this chip
-      ch.classList.toggle('active');
-      // remove "all"
-      document.querySelectorAll('[data-filter="all"]').forEach(a=>a.classList.remove('active'));
-    }
-    applyFilters();
-  });
-});
-
-document.getElementById('q').addEventListener('input', applyFilters);
-document.getElementById('sort').addEventListener('change', applyFilters);
-
-function applyFilters(){
-  const q = document.getElementById('q').value.trim().toLowerCase();
-  // gather active chips
-  const activeFilter = document.querySelector('.chip[data-filter].active');
-  const states = Array.from(document.querySelectorAll('.chip[data-state].active')).map(n=>n.dataset.state);
-  const tags = Array.from(document.querySelectorAll('.chip[data-tag].active')).map(n=>n.dataset.tag);
-
-  let list = DATA.slice();
-
-  // filter by filter chip (category)
-  if(activeFilter && activeFilter.dataset.filter !== 'all'){
-    list = list.filter(d=>d.tag === activeFilter.dataset.filter);
-  }
-
-  // state filter
-  if(states.length) list = list.filter(d=>states.includes(d.state));
-
-  // tags (if selected, intersection)
-  if(tags.length) list = list.filter(d=> tags.includes(d.tag) );
-
-  // search
-  if(q) list = list.filter(d => (d.name + ' ' + d.desc + ' ' + d.tag).toLowerCase().includes(q));
-
-  // sort
-  const sort = document.getElementById('sort').value;
-  if(sort === 'popular') list.sort((a,b)=>b.followers - a.followers);
-  else if(sort === 'ending') list.sort((a,b)=> a.state === 'upcoming' ? -1 : 1);
-  else list.sort((a,b)=> b.id - a.id);
-
-  renderGrid(list);
-}
-
-/* ---------- initial render ---------- */
-renderGrid(DATA.slice(0,8)); // show first 8
-renderLeaders();
-
-/* load more */
-document.getElementById('loadMore').addEventListener('click',()=>{
-  const current = grid.children.length;
-  const more = DATA.slice(current, current+8);
-  more.forEach(m=>grid.appendChild(createCard(m)));
-  countMeta.textContent = `${grid.children.length} proje bulundu`;
-});
-</script>
-
+  <footer>© 2025 PrimeAirdrop — Tüm Hakları Saklıdır</footer>
 </body>
 </html>
