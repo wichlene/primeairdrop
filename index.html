@@ -123,24 +123,51 @@
 
   <footer>© 2025 PrimeAirdrop — Tüm Hakları Saklıdır</footer>
 </body>
-  <!-- Anlık Coin Fiyatları Sidebar -->
-<div id="crypto-sidebar" style="position: fixed; top: 100px; left: 0; width: 180px; background: #ffffffdd; padding: 12px; border-right: 1px solid #ccc; z-index: 1000;">
-  <h4 style="margin:0 0 10px 0; font-size:16px;">Fiyatlar</h4>
-  <div id="prices">Loading...</div>
+<!-- Genişletilmiş Coin Fiyatları Sidebar -->
+<div id="crypto-sidebar" style="position: fixed; top: 100px; left: 0; width: 200px; background: #0d1117; color: #00ff88; padding: 16px; border-right: 1px solid #333; z-index: 1000; font-family: Arial, sans-serif; font-size: 14px;">
+  <h4 style="margin: 0 0 12px 0; font-size: 16px; color: #00ff88;">🪙 Popüler Coin Fiyatları</h4>
+  <div id="prices">Yükleniyor...</div>
 </div>
 
 <script>
   async function fetchPrices() {
+    const ids = [
+      'bitcoin', 'ethereum', 'solana', 'binancecoin',
+      'dogecoin', 'shiba-inu', 'ripple', 'cardano',
+      'avalanche-2', 'polygon', 'chainlink', 'toncoin'
+    ];
+    const url = `https://api.coingecko.com/api/v3/simple/price?ids=${ids.join(',')}&vs_currencies=usd`;
+
     try {
-      const resp = await fetch("https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum&vs_currencies=usd");
+      const resp = await fetch(url);
       const data = await resp.json();
-      document.getElementById("prices").innerHTML = 
-        `₿ BTC: $${data.bitcoin.usd}<br>Ξ ETH: $${data.ethereum.usd}`;
+
+      const pricesHTML = `
+        ₿ BTC: $${data.bitcoin.usd}<br>
+        Ξ ETH: $${data.ethereum.usd}<br>
+        ◎ SOL: $${data.solana.usd}<br>
+        🟡 BNB: $${data.binancecoin.usd}<br>
+        🐶 DOGE: $${data.dogecoin.usd}<br>
+        🪙 SHIB: $${data['shiba-inu'].usd}<br>
+        🔵 XRP: $${data.ripple.usd}<br>
+        🟣 ADA: $${data.cardano.usd}<br>
+        🔶 AVAX: $${data['avalanche-2'].usd}<br>
+        🔷 MATIC: $${data.polygon.usd}<br>
+        💠 LINK: $${data.chainlink.usd}<br>
+        🟢 TON: $${data.toncoin.usd}
+      `;
+
+      document.getElementById("prices").innerHTML = pricesHTML;
     } catch (err) {
-      console.error("Fiyat alma hatası:", err);
-      document.getElementById("prices").innerText = "Hata!";
+      console.error("Fiyat verisi alınamadı", err);
+      document.getElementById("prices").innerText = "Veri alınamadı.";
     }
   }
+
+  fetchPrices();
+  setInterval(fetchPrices, 15000);
+</script>
+
   fetchPrices();
   setInterval(fetchPrices, 15000);
 </script>
