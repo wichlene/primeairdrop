@@ -123,63 +123,41 @@
 
   <footer>© 2025 PrimeAirdrop — Tüm Hakları Saklıdır</footer>
 </body>
-<!-- Popüler Coin Fiyatları Sidebar -->
 <div id="crypto-sidebar" style="position: fixed; top: 100px; left: 0; width: 200px; background: #0d1117; color: #00ff88; padding: 16px; border-right: 1px solid #333; z-index: 1000; font-family: Arial, sans-serif; font-size: 14px;">
-  <h4 style="margin: 0 0 12px 0; font-size: 16px; color: #00ff88;">🪙 Popüler Coin Fiyatları</h4>
+  <h4 style="margin: 0 0 12px 0; font-size: 16px; color: #00ff88;">🪙 Popüler Coin Fiyatları (Demo)</h4>
   <div id="prices">Yükleniyor...</div>
 </div>
 
 <script>
   async function fetchPrices() {
-    const ids = [
-      'bitcoin',
-      'ethereum',
-      'solana',
-      'binancecoin',
-      'dogecoin',
-      'shiba-inu',
-      'ripple',
-      'cardano',
-      'avalanche-2',
-      'polygon',
-      'chainlink',
-      'toncoin'
-    ];
-    const url = `https://api.coingecko.com/api/v3/simple/price?ids=${ids.join(',')}&vs_currencies=usd`;
-
     try {
-      const resp = await fetch(url);
-      if (!resp.ok) throw new Error('API hatası');
+      const resp = await fetch('prices.json');
       const data = await resp.json();
 
       const pricesHTML = `
-        ₿ BTC: $${data.bitcoin.usd}<br>
-        Ξ ETH: $${data.ethereum.usd}<br>
-        ◎ SOL: $${data.solana.usd}<br>
-        🟡 BNB: $${data.binancecoin.usd}<br>
-        🐶 DOGE: $${data.dogecoin.usd}<br>
-        🪙 SHIB: $${data["shiba-inu"].usd}<br>
-        🔵 XRP: $${data.ripple.usd}<br>
-        🟣 ADA: $${data.cardano.usd}<br>
-        🔶 AVAX: $${data["avalanche-2"].usd}<br>
-        🔷 MATIC: $${data.polygon.usd}<br>
-        💠 LINK: $${data.chainlink.usd}<br>
-        🟢 TON: $${data.toncoin.usd}
+        ₿ BTC: $${data.bitcoin}<br>
+        Ξ ETH: $${data.ethereum}<br>
+        ◎ SOL: $${data.solana}<br>
+        🟡 BNB: $${data.binancecoin}<br>
+        🐶 DOGE: $${data.dogecoin}<br>
+        🪙 SHIB: $${data["shiba-inu"]}<br>
+        🔵 XRP: $${data.ripple}<br>
+        🟣 ADA: $${data.cardano}<br>
+        🔶 AVAX: $${data["avalanche-2"]}<br>
+        🔷 MATIC: $${data.polygon}<br>
+        💠 LINK: $${data.chainlink}<br>
+        🟢 TON: $${data.toncoin}
       `;
 
       document.getElementById("prices").innerHTML = pricesHTML;
     } catch (err) {
-      console.error("Fiyat verisi alınamadı:", err);
       document.getElementById("prices").innerText = "Veri alınamadı 😕";
+      console.error(err);
     }
   }
-<div id="test-fetch">Yükleniyor...</div>
-<script>
-  fetch("https://api.coingecko.com/api/v3/ping")
-    .then(res => res.json())
-    .then(data => {
-      document.getElementById("test-fetch").innerText = "API Çalışıyor ✔️";
-    })
+
+  fetchPrices();
+  setInterval(fetchPrices, 60000);
 </script>
 
 </script>
