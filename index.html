@@ -7,18 +7,19 @@
   <style>
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f5f5f5;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f0f4f8;
+      color: #333;
       display: flex;
       min-height: 100vh;
       overflow-x: hidden;
     }
 
-    /* Sosyal medya ikonu sağda sabit */
+    /* Sosyal medya sağda sabit */
     .social-media {
       position: fixed;
       top: 50%;
-      right: 10px;
+      right: 15px;
       transform: translateY(-50%);
       display: flex;
       flex-direction: column;
@@ -26,19 +27,18 @@
       z-index: 1000;
     }
     .social-media a {
-      display: flex;
-      align-items: center;
-      justify-content: center;
       width: 44px;
       height: 44px;
-      background: #222;
+      background: #24292e;
       border-radius: 50%;
-      text-decoration: none;
-      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       transition: background-color 0.3s ease;
+      text-decoration: none;
     }
     .social-media a:hover {
-      background: #007bff;
+      background-color: #0366d6;
     }
     .social-media a img {
       width: 24px;
@@ -46,48 +46,59 @@
       filter: invert(1);
     }
 
-    /* Ortada referans linkleri */
+    /* Ortadaki referans kutusu */
     .ref-links-container {
       flex: 1;
       display: flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
       padding: 40px 20px;
+      max-width: 400px;
+      margin: auto;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
     }
+
+    .ref-links-container h1 {
+      margin-bottom: 25px;
+      color: #007bff;
+      font-size: 2.2rem;
+      font-weight: 700;
+      text-align: center;
+    }
+
     .ref-links {
+      width: 100%;
       display: flex;
       flex-direction: column;
-      gap: 16px;
-      max-width: 320px;
-      width: 100%;
-      background: white;
-      padding: 24px;
-      border-radius: 8px;
-      box-shadow: 0 4px 15px rgb(0 0 0 / 0.1);
+      gap: 15px;
     }
+
     .ref-links a {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 14px;
+      padding: 12px 18px;
+      background: #f7f9fc;
+      border-radius: 8px;
       text-decoration: none;
-      color: #222;
+      color: #444;
       font-weight: 600;
       font-size: 16px;
-      border-bottom: 1px solid #eee;
-      padding-bottom: 6px;
-      transition: color 0.3s ease;
-    }
-    .ref-links a:last-child {
-      border-bottom: none;
+      transition: background-color 0.3s ease, color 0.3s ease;
+      box-shadow: 0 2px 5px rgb(0 0 0 / 0.05);
     }
     .ref-links a:hover {
-      color: #007bff;
+      background-color: #007bff;
+      color: white;
     }
-    .ref-links img {
+    .ref-links a img {
       width: 28px;
       height: 28px;
       object-fit: contain;
-      filter: invert(0.15) sepia(0.5) saturate(5) hue-rotate(180deg);
+      filter: none;
     }
   </style>
 </head>
@@ -114,57 +125,58 @@
 
   <!-- Ortadaki referans linkleri -->
   <div class="ref-links-container">
+    <h1>Referanslarımız</h1>
     <div class="ref-links">
       <a href="https://efsanetr.com" target="_blank" title="Efsane.tr">
-        <img src="https://cdn.jsdelivr.net/npm/simple-icons@v10/icons/linkedin.svg" alt="Efsane.tr" />
+        <img src="https://efsanetr.com/favicon.ico" alt="Efsane.tr Logo" />
         Efsane.tr
       </a>
       <a href="https://app.grass.io" target="_blank" title="Grass">
-        <img src="https://cdn.jsdelivr.net/npm/simple-icons@v10/icons/grass.svg" alt="Grass" />
+        <img src="https://app.grass.io/favicon.ico" alt="Grass Logo" />
         Grass
       </a>
       <a href="https://dashboard.teneo.pro" target="_blank" title="Teneo">
-        <img src="https://cdn.jsdelivr.net/npm/simple-icons@v10/icons/tensorflow.svg" alt="Teneo" />
+        <img src="https://dashboard.teneo.pro/favicon.ico" alt="Teneo Logo" />
         Teneo
       </a>
       <a href="https://jigsaw.google.com" target="_blank" title="Jigsaw">
-        <img src="https://cdn.jsdelivr.net/npm/simple-icons@v10/icons/google.svg" alt="Jigsaw" />
+        <img src="https://jigsaw.google.com/favicon.ico" alt="Jigsaw Logo" />
         Jigsaw
       </a>
       <a href="https://globshaga.com" target="_blank" title="Globshaga">
-        <img src="https://cdn.jsdelivr.net/npm/simple-icons@v10/icons/googlechrome.svg" alt="Globshaga" />
+        <img src="https://globshaga.com/favicon.ico" alt="Globshaga Logo" />
         Globshaga
       </a>
       <a href="https://teafi.com" target="_blank" title="Teafi">
-        <img src="https://cdn.jsdelivr.net/npm/simple-icons@v10/icons/teal.svg" alt="Teafi" />
+        <img src="https://teafi.com/favicon.ico" alt="Teafi Logo" />
         Teafi
       </a>
       <a href="https://3dos.com" target="_blank" title="3DOS">
-        <img src="https://cdn.jsdelivr.net/npm/simple-icons@v10/icons/threejs.svg" alt="3DOS" />
+        <img src="https://3dos.com/favicon.ico" alt="3DOS Logo" />
         3DOS
       </a>
       <a href="https://toggle.com" target="_blank" title="Toggle">
-        <img src="https://cdn.jsdelivr.net/npm/simple-icons@v10/icons/toggl.svg" alt="Toggle" />
+        <img src="https://toggle.com/favicon.ico" alt="Toggle Logo" />
         Toggle
       </a>
       <a href="https://despeed.com" target="_blank" title="Despeed">
-        <img src="https://cdn.jsdelivr.net/npm/simple-icons@v10/icons/docker.svg" alt="Despeed" />
+        <img src="https://despeed.com/favicon.ico" alt="Despeed Logo" />
         Despeed
       </a>
       <a href="https://perceptron.com" target="_blank" title="Perseptron">
-        <img src="https://cdn.jsdelivr.net/npm/simple-icons@v10/icons/perl.svg" alt="Perseptron" />
+        <img src="https://perceptron.com/favicon.ico" alt="Perseptron Logo" />
         Perseptron
       </a>
       <a href="https://incentiv.com" target="_blank" title="Incentiv">
-        <img src="https://cdn.jsdelivr.net/npm/simple-icons@v10/icons/influxdb.svg" alt="Incentiv" />
+        <img src="https://incentiv.com/favicon.ico" alt="Incentiv Logo" />
         Incentiv
       </a>
       <a href="https://sosovalue.com" target="_blank" title="Sosovalue">
-        <img src="https://cdn.jsdelivr.net/npm/simple-icons@v10/icons/salesforce.svg" alt="Sosovalue" />
+        <img src="https://sosovalue.com/favicon.ico" alt="Sosovalue Logo" />
         Sosovalue
       </a>
       <a href="https://trex.com" target="_blank" title="Trex">
-        <img src="https://cdn.jsdelivr.net/npm/simple-icons@v10/icons/trello.svg" alt="Trex" />
+        <img src="https://trex.com/favicon.ico" alt="Trex Logo" />
         Trex
       </a>
     </div>
