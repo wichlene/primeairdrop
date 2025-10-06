@@ -4,6 +4,48 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Prime Airdrop</title>
+  <link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+/>
+<style>
+  .footer-social {
+    position: fixed;    /* Sayfaya sabitle */
+    bottom: 0;          /* Alt kısma yerleştir */
+    left: 0;
+    width: 100%;
+    background-color: #fff;   /* Arka plan rengi, isteğe bağlı */
+    padding: 15px 0;
+    display: flex;
+    justify-content: center;   /* Ortalamak için */
+    gap: 25px;                  /* Aralık */
+    z-index: 1000;
+    border-top: 1px solid #ddd;  /* Üst çizgi */
+  }
+
+  .footer-social a {
+    color: #333;
+    font-size: 30px;
+    transition: color 0.3s ease;  /* Hover efekti */
+  }
+
+  .footer-social a:hover {
+    color: #0070f3;  /* Hover'da renk değişimi */
+  }
+
+  /* Mobil uyumlu ayarlar */
+  @media (max-width: 480px) {
+    .footer-social {
+      gap: 20px;
+      padding: 10px 0;
+    }
+
+    .footer-social a {
+      font-size: 24px;
+    }
+  }
+</style>
+
   <style>
     body {
       margin: 0;
@@ -178,6 +220,25 @@
     loadPrices();
     setInterval(loadPrices, 10000); // her 10 saniyede güncelle
   </script>
+  <!-- Sosyal medya ikonları -->
+<div class="footer-social">
+  <a href="https://discord.com/channels/@wichlene" target="_blank" title="Discord">
+    <i class="fab fa-discord"></i>
+  </a>
+  <a href="https://www.facebook.com/profile.php?id=61573834593870" target="_blank" title="Facebook">
+    <i class="fab fa-facebook"></i>
+  </a>
+  <a href="https://www.instagram.com/primeairdrop3/" target="_blank" title="Instagram">
+    <i class="fab fa-instagram"></i>
+  </a>
+  <a href="https://x.com/muhtac10" target="_blank" title="X / Twitter">
+    <i class="fab fa-x-twitter"></i>
+  </a>
+  <a href="https://github.com/wichlene" target="_blank" title="GitHub">
+    <i class="fab fa-github"></i>
+  </a>
+</div>
+
 </body>
 
 </style>
