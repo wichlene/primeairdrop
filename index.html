@@ -44,6 +44,26 @@
       font-size: 24px;
     }
   }
+  <style>
+  .rotating-logo {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 100vw;
+    height: 100vh;
+    transform: translate(-50%, -50%);
+    animation: rotate 20s linear infinite;
+    opacity: 0.05;
+    z-index: -1;
+    object-fit: cover;
+  }
+
+  @keyframes rotate {
+    from { transform: translate(-50%, -50%) rotate(0deg); }
+    to { transform: translate(-50%, -50%) rotate(360deg); }
+  }
+</style>
+
 </style>
 
   <style>
@@ -174,6 +194,7 @@
       <li><a href="https://sosovalue.com/join/R98NT7Z7">Sosovalue</a></li>
       <li><a href="https://s.trex.xyz/lljUoy">Trex</a></li>
     </ul>
+<img src="primeairdrop.jpg" class="rotating-logo" alt="Logo">
 
     <footer>
       <p>© 2025 PrimeAirdrop — Tüm Hakları Saklıdır.</p>
