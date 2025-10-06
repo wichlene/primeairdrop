@@ -179,14 +179,14 @@
     setInterval(loadPrices, 10000); // her 10 saniyede güncelle
   </script>
 </body>
-  <!-- Font Awesome ikonları için CDN (başlıkta olabilir) -->
+  <!-- Font Awesome CDN (sadece 1 kere ekle, daha önce varsa tekrar ekleme) -->
 <link
   rel="stylesheet"
   href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
 />
 
-<!-- Sosyal Medya Linkleri -->
-<div class="social-links">
+<!-- Sabit alt sosyal medya menüsü -->
+<div class="footer-social">
   <a href="https://discord.com/channels/@wichlene" target="_blank" title="Discord">
     <i class="fab fa-discord"></i>
   </a>
@@ -203,22 +203,43 @@
     <i class="fab fa-github"></i>
   </a>
 </div>
+
+</div>
 <style>
-  .social-links {
+  <style>
+  .footer-social {
+    position: fixed;     /* Sayfanın dibine sabitler */
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #fff; /* Saydama göre değiştirilebilir */
+    padding: 15px 0;
     display: flex;
     justify-content: center;
     gap: 25px;
-    margin-top: 40px;
+    z-index: 1000;
+    border-top: 1px solid #ddd;
   }
 
-  .social-links a {
+  .footer-social a {
     color: #333;
-    font-size: 30px;
+    font-size: 28px;
     transition: color 0.3s ease;
   }
 
-  .social-links a:hover {
+  .footer-social a:hover {
     color: #0070f3;
+  }
+
+  @media (max-width: 480px) {
+    .footer-social {
+      gap: 15px;
+      padding: 10px 0;
+    }
+
+    .footer-social a {
+      font-size: 24px;
+    }
   }
 </style>
 
