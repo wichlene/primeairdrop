@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Prime Airdrop</title>
+  <style>
+    body {
+      background-color: black;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    img {
+      width: 150px;
+      animation: spin 8s linear infinite, glow 3s ease-in-out infinite alternate;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg);}
+      100% { transform: rotate(360deg);}
+    }
+    @keyframes glow {
+      0% { filter: drop-shadow(0 0 5px gold);}
+      100% { filter: drop-shadow(0 0 20px gold);}
+    }
+  </style>
+</head>
+<body>
+  <img src="logo.jpg" alt="Prime Airdrop Logo" />
+</body>
+</html>
