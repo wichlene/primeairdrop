@@ -6,6 +6,25 @@
   <title>PrimeAirdrop</title>
   <style>
     body {
+      <div id="crypto-prices" style="
+  position: fixed;
+  left: 10px;
+  top: 80px;
+  color: white;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.95rem;
+  background: rgba(0,0,0,0.4);
+  padding: 10px 15px;
+  border-radius: 12px;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 0 10px rgba(255,255,255,0.1);
+  width: 150px;
+  z-index: 1000;
+">
+  <b style="color:#FFD700;">Coin Fiyatları</b>
+  <ul id="coinList" style="list-style:none; padding:0; margin:10px 0 0 0;"></ul>
+</div>
+
       background-color: #000;
       color: #fff;
       font-family: 'Inter', Arial, sans-serif;
@@ -65,32 +84,6 @@
 <body>
   <h1>PrimeAirdrop</h1>
   <p>Web3 & DePIN projelerinde kazanç fırsatlarını keşfet ✨</p>
-<div id="prices" style="margin-bottom: 30px; font-size: 1rem; color: #FFD700;">
-  <b>Canlı Coin Fiyatları</b><br />
-  <span id="coinData">Yükleniyor...</span>
-</div>
-<script>
-  async function fetchPrices() {
-    try {
-      const response = await fetch(
-        "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,solana,toncoin,dogecoin&vs_currencies=usd"
-      );
-      const data = await response.json();
-
-      const text = `
-        🪙 BTC: $${data.bitcoin.usd} &nbsp;|&nbsp;
-        ⚡ ETH: $${data.ethereum.usd} &nbsp;|&nbsp;
-        🔆 SOL: $${data.solana.usd} &nbsp;|&nbsp;
-        💎 TON: $${data.toncoin.usd} &nbsp;|&nbsp;
-        🐕 DOGE: $${data.dogecoin.usd}
-      `;
-
-      document.getElementById("coinData").innerHTML = text;
-    } catch (err) {
-      document.getElementById("coinData").innerText = "Fiyatlar alınamadı 😔";
-      console.error(err);
-    }
-  }
 
   fetchPrices();
   setInterval(fetchPrices, 30000); // 30 saniyede bir yenile
@@ -152,7 +145,49 @@
   </div>
 
   <footer>© 2025 PrimeAirdrop — Tüm Hakları Saklıdır</footer>
-</body>
+</body><script>
+  const coins = [
+    { id: "bitcoin", symbol: "BTC" },
+    { id: "ethereum", symbol: "ETH" },
+    { id: "solana", symbol: "SOL" },
+    { id: "toncoin", symbol: "TON" },
+    { id: "dogecoin", symbol: "DOGE" }
+  ];
+
+  let previousPrices = {};
+
+  async function fetchPrices() {
+    try {
+      const response = await fetch(
+        "https://api.coingecko.com/api/v3/simple/price?ids=" +
+        coins.map(c => c.id).join(",") +
+        "&vs_currencies=usd"
+      );
+      const data = await response.json();
+
+      const list = document.getElementById("coinList");
+      list.innerHTML = "";
+
+      coins.forEach(c => {
+        const price = data[c.id].usd;
+        const prev = previousPrices[c.id] || price;
+        const color = price > prev ? "limegreen" : price < prev ? "red" : "white";
+        previousPrices[c.id] = price;
+
+        const li = document.createElement("li");
+        li.style.margin = "4px 0";
+        li.innerHTML = `${c.symbol}: <span style="color:${color}">$${price.toLocaleString()}</span>`;
+        list.appendChild(li);
+      });
+    } catch (err) {
+      console.error("Coin verisi alınamadı:", err);
+    }
+  }
+
+  fetchPrices();
+  setInterval(fetchPrices, 30000);
+</script>
+
 </script>
   <footer style="text-align:center; padding: 30px 10px; background-color: #061025; color: white;">
   <p style="font-size: 18px; margin-bottom: 15px;">Bizi Takip Et</p>
